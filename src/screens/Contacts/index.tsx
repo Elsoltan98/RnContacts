@@ -1,11 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import Container from '../../components/common/Container';
+import Input from '../../components/common/Input';
 
 const Contacts = () => {
+  const [text, onChangeText] = React.useState('Useless Text');
   return (
-    <View>
+    <Container>
       <Text>Contacts Screen</Text>
-    </View>
+      <Input text={text} onChangeText={onChangeText} label="User Name" />
+    </Container>
   );
 };
 
