@@ -1,48 +1,26 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {View, Text} from 'react-native';
+
+import {
+  CONTACT_DETAILS,
+  CONTACT_LIST,
+  CREATE_CONTACT,
+  SETTINGS,
+} from '../constants/routeNames';
+import ContactDetails from '../screens/ContactDetails';
+import Contacts from '../screens/Contacts';
+import CreateContact from '../screens/CreateContact';
+import Settings from '../screens/Settings';
 
 const Stack = createNativeStackNavigator();
 
-function Contacts() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Contacts Screen</Text>
-    </View>
-  );
-}
-
-function CreateContact() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Create Contact Screen</Text>
-    </View>
-  );
-}
-
-function ContactDetails() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Contact Details Screen</Text>
-    </View>
-  );
-}
-
-function Settings() {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Settings Screen</Text>
-    </View>
-  );
-}
-
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Contacts">
-      <Stack.Screen name="Contacts" component={Contacts} />
-      <Stack.Screen name="Create Contact" component={CreateContact} />
-      <Stack.Screen name="Contact Details" component={ContactDetails} />
-      <Stack.Screen name="Settings" component={Settings} />
+    <Stack.Navigator initialRouteName={CONTACT_LIST}>
+      <Stack.Screen name={CONTACT_LIST} component={Contacts} />
+      <Stack.Screen name={CREATE_CONTACT} component={CreateContact} />
+      <Stack.Screen name={CONTACT_DETAILS} component={ContactDetails} />
+      <Stack.Screen name={SETTINGS} component={Settings} />
     </Stack.Navigator>
   );
 };
