@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../../colors';
 
 export default StyleSheet.create({
-  input: {
+  wrapper: {
     height: 40,
-    margin: 12,
+    borderColor: colors.grey,
     borderWidth: 1,
-    padding: 10,
+    borderRadius: 4,
   },
 });
