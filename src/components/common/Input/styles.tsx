@@ -22,4 +22,8 @@ export default StyleSheet.create({
     color: colors.danger,
     fontSize: 12,
   },
+  label: {
+    fontSize: 17,
+    fontWeight: '500',
+  },
 });

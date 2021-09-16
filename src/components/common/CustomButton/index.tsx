@@ -1,11 +1,5 @@
 import React, {FC} from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import colors from '../../../colors';
 import styles from './styles';
 

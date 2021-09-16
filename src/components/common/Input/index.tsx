@@ -11,6 +11,8 @@ interface Props {
   style?: {};
   iconPosition?: string;
   error?: string;
+  placeholder?: string;
+  secureTextEntry?: boolean;
 }
 
 const Input: FC<Props> = ({
@@ -21,6 +23,8 @@ const Input: FC<Props> = ({
   style,
   iconPosition,
   error,
+  placeholder,
+  secureTextEntry,
 }) => {
   const [focused, setFocused] = React.useState<boolean | null>(null);
   const getFlexDirection = () => {
@@ -46,7 +50,7 @@ const Input: FC<Props> = ({
   };
   return (
     <View style={styles.inputContainer}>
-      {label && <Text>{label}</Text>}
+      {label && <Text style={styles.label}>{label}</Text>}
       <View
         style={[
           styles.wrapper,
@@ -60,6 +64,8 @@ const Input: FC<Props> = ({
           value={text}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          placeholder={placeholder}
+          secureTextEntry={secureTextEntry}
         />
       </View>
       {error && <Text style={styles.error}>{error}</Text>}
