@@ -9,14 +9,14 @@ export default StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderRadius: 4,
-    alignItems: 'center',
     marginVertical: 5,
     padding: 5,
   },
   textInput: {
     flex: 1,
-    marginHorizontal: 5,
+    marginHorizontal: 2,
     padding: 5,
+    width: '100%',
   },
   error: {
     color: colors.danger,

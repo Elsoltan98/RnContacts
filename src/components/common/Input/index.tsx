@@ -22,6 +22,7 @@ const Input: FC<Props> = ({
   iconPosition,
   error,
 }) => {
+  const [focused, setFocused] = React.useState<boolean | null>(null);
   const getFlexDirection = () => {
     if (icon && iconPosition) {
       if (iconPosition === 'left') {
@@ -33,6 +34,10 @@ const Input: FC<Props> = ({
   };
 
   const getBorderError = () => {
+    if (focused) {
+      return colors.primary;
+    }
+
     if (error) {
       return colors.danger;
     } else {
@@ -45,6 +50,7 @@ const Input: FC<Props> = ({
       <View
         style={[
           styles.wrapper,
+          {alignItems: icon ? 'center' : 'baseline'},
           {flexDirection: getFlexDirection(), borderColor: getBorderError()},
         ]}>
         <View>{icon && icon}</View>
@@ -52,6 +58,8 @@ const Input: FC<Props> = ({
           style={[style, styles.textInput]}
           onChangeText={onChangeText}
           value={text}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
         />
       </View>
       {error && <Text style={styles.error}>{error}</Text>}
