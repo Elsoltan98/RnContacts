@@ -37,7 +37,7 @@ const LoginComponent = () => {
         secureTextEntry
       />
 
-      <CustomButton title="Submit" primary />
+      <CustomButton title="Submit" primary onSubmit={() => {}} />
       <View style={styles.footer}>
         <Text style={styles.new}>Need a new account?</Text>
         <TouchableOpacity onPress={() => navigate(REGISTER)}>

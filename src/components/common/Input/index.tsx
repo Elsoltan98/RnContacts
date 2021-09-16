@@ -5,7 +5,7 @@ import styles from './styles';
 
 interface Props {
   onChangeText: (txt: string) => void;
-  text: string;
+  text?: string;
   label?: string;
   icon?: any;
   style?: {};
@@ -38,12 +38,12 @@ const Input: FC<Props> = ({
   };
 
   const getBorderError = () => {
-    if (focused) {
-      return colors.primary;
-    }
-
     if (error) {
       return colors.danger;
+    }
+
+    if (focused) {
+      return colors.primary;
     } else {
       return colors.grey;
     }

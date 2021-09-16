@@ -10,6 +10,7 @@ interface Props {
   secondary?: boolean;
   primary?: boolean;
   danger?: boolean;
+  onSubmit: () => void;
 }
 
 const CustomButton: FC<Props> = ({
@@ -19,6 +20,7 @@ const CustomButton: FC<Props> = ({
   primary,
   secondary,
   danger,
+  onSubmit,
 }) => {
   const getBgColor = () => {
     if (primary) {
@@ -31,7 +33,7 @@ const CustomButton: FC<Props> = ({
   };
   return (
     <TouchableOpacity
-      onPress={() => {}}
+      onPress={onSubmit}
       style={[
         styles.wrapper,
         {backgroundColor: disabled ? colors.grey : getBgColor()},
