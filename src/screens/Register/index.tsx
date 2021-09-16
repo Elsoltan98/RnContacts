@@ -1,12 +1,8 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import SignupComponent from '../../components/SignupComponent';
 
 const Register = () => {
-  return (
-    <View>
-      <Text>Register Screen</Text>
-    </View>
-  );
+  return <SignupComponent />;
 };
 
 export default Register;
