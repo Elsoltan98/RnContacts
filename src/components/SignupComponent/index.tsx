@@ -7,15 +7,28 @@ import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
 
+interface Errors {
+  userName?: string;
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface ChaneArg {
+  name: string;
+  value: string;
+}
+
 interface Props {
   form: {};
-  errors: {};
-  onChange: ({name, value}) => void;
+  errors: Errors;
+  onChange: ({}: ChaneArg) => void;
   onSubmit: () => void;
 }
 
-const SignupComponent: FC<Props> = ({form, errors, onChange, onSubmit}) => {
-  const {navigate} = useNavigation();
+const SignupComponent: FC<Props> = ({errors, onChange, onSubmit}) => {
+  const {navigate}: any = useNavigation();
   return (
     <Container>
       <Image
@@ -55,9 +68,7 @@ const SignupComponent: FC<Props> = ({form, errors, onChange, onSubmit}) => {
         icon={<Text>Show</Text>}
         iconPosition="right"
         placeholder="Enter Password"
-        onChangeText={(value: string | number) =>
-          onChange({name: 'password', value})
-        }
+        onChangeText={(value: string) => onChange({name: 'password', value})}
         error={errors.password}
         secureTextEntry
       />

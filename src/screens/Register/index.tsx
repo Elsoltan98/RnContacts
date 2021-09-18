@@ -1,11 +1,19 @@
 import React, {useState} from 'react';
-import SignupComponent from '../../components/SignupComponent';
+import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
+
+interface Form {
+  userName?: string;
+  lastName?: string;
+  firstName?: string;
+  email?: string;
+  password?: string;
+}
 
 const Register = () => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
 
-  const onChange = ({name, value}) => {
+  const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
       if (name === 'password') {
         if (value.length < 6) {
