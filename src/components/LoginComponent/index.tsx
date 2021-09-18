@@ -8,7 +8,7 @@ import Input from '../common/Input';
 import styles from './styles';
 
 const LoginComponent = () => {
-  const {navigate} = useNavigation();
+  const {navigate}: any = useNavigation();
   const [text, onChangeText] = React.useState('');
   const [number, onChangeNumber] = React.useState('');
   return (
