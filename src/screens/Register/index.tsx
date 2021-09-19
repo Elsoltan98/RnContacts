@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
-
-import envs from './../../config/env';
+import instance from '../../helpers/axiosInterceptors';
 
 interface Form {
   userName?: string;
@@ -15,7 +14,11 @@ const Register = () => {
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
 
-  console.log('ENVS =/> ', envs);
+  useEffect(() => {
+    instance.get('/contacts').catch(err => {
+      console.log(err.response);
+    });
+  }, []);
 
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
