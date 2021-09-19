@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
 
+import envs from './../../config/env';
+
 interface Form {
   userName?: string;
   lastName?: string;
@@ -12,6 +14,8 @@ interface Form {
 const Register = () => {
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
+
+  console.log('ENVS =/> ', envs);
 
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
