@@ -25,9 +25,17 @@ interface Props {
   errors: Errors;
   onChange: ({}: ChaneArg) => void;
   onSubmit: () => void;
+  loading: boolean;
+  error: any;
 }
 
-const SignupComponent: FC<Props> = ({errors, onChange, onSubmit}) => {
+const SignupComponent: FC<Props> = ({
+  errors,
+  onChange,
+  onSubmit,
+  loading,
+  error,
+}) => {
   const {navigate}: any = useNavigation();
   return (
     <Container>
@@ -43,25 +51,25 @@ const SignupComponent: FC<Props> = ({errors, onChange, onSubmit}) => {
         label="User Name"
         placeholder="Enter name"
         onChangeText={(value: string) => onChange({name: 'userName', value})}
-        error={errors.userName}
+        error={errors.userName || error?.username?.[0]}
       />
       <Input
         label="First name"
         placeholder="Enter first name"
         onChangeText={(value: string) => onChange({name: 'firstName', value})}
-        error={errors.firstName}
+        error={errors.firstName || error?.first_name?.[0]}
       />
       <Input
         label="Last name"
         placeholder="Enter last name"
         onChangeText={(value: string) => onChange({name: 'lastName', value})}
-        error={errors.lastName}
+        error={errors.lastName || error?.last_name?.[0]}
       />
       <Input
         label="Email"
         placeholder="Enter Email"
         onChangeText={(value: string) => onChange({name: 'email', value})}
-        error={errors.email}
+        error={errors.email || error?.email?.[0]}
       />
       <Input
         label="Password"
@@ -69,11 +77,17 @@ const SignupComponent: FC<Props> = ({errors, onChange, onSubmit}) => {
         iconPosition="right"
         placeholder="Enter Password"
         onChangeText={(value: string) => onChange({name: 'password', value})}
-        error={errors.password}
+        error={errors.password || error?.password?.[0]}
         secureTextEntry
       />
-
-      <CustomButton title="Submit" primary onSubmit={onSubmit} />
+      {console.log('error', error)}
+      <CustomButton
+        title="Submit"
+        primary
+        onSubmit={onSubmit}
+        loading={loading}
+        disabled={loading}
+      />
       <View style={styles.footer}>
         <Text style={styles.new}>Need a new account?</Text>
         <TouchableOpacity onPress={() => navigate(LOG_IN)}>

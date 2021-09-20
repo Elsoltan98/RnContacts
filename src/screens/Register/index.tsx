@@ -1,5 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
+import register, {clearAuthState} from '../../context/actions/auth/register';
+import {GlobalContext} from '../../context/Provider';
+import {LOG_IN} from '../../constants/routeNames';
 
 export interface Form {
   userName?: string;
@@ -10,8 +14,27 @@ export interface Form {
 }
 
 const Register = () => {
+  const {navigate}: any = useNavigation();
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
+  const {
+    authDispatch,
+    auth: {error, loading, data},
+  }: any = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (data) {
+      navigate(LOG_IN);
+    }
+  }, [data, navigate]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (data) {
+        clearAuthState()(authDispatch);
+      }
+    }, [authDispatch, data]),
+  );
 
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
@@ -70,7 +93,7 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      console.log('1111', 1111);
+      register(form)(authDispatch);
     }
   };
 
@@ -80,6 +103,8 @@ const Register = () => {
       errors={errors}
       onChange={onChange}
       onSubmit={onSubmit}
+      error={error}
+      loading={loading}
     />
   );
 };
