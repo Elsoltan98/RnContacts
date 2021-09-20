@@ -5,11 +5,9 @@ import envs from './../config/env';
 let headers = {};
 
 const instance = axios.create({
-  baseURL: `${envs.DEV_BACKEND_URL}`,
+  baseURL: envs.DEV_BACKEND_URL,
   headers,
 });
-
-console.log('envs_BACKEND => ', envs.DEV_BACKEND_URL);
 
 instance.interceptors.request.use(
   async config => {

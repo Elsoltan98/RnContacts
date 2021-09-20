@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
-import instance from '../../helpers/axiosInterceptors';
 
-interface Form {
+export interface Form {
   userName?: string;
   lastName?: string;
   firstName?: string;
@@ -13,12 +12,6 @@ interface Form {
 const Register = () => {
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    instance.get('/contacts').catch(err => {
-      console.log(err.response);
-    });
-  }, []);
 
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
@@ -46,8 +39,6 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    console.log('Form => ', form);
-
     if (!form.userName) {
       setErrors(prev => {
         return {...prev, userName: 'Please add user name'};
@@ -72,6 +63,14 @@ const Register = () => {
       setErrors(prev => {
         return {...prev, password: 'Please add password'};
       });
+    }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      console.log('1111', 1111);
     }
   };
 
