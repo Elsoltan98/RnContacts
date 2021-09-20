@@ -22,20 +22,21 @@ const Register = () => {
     auth: {error, loading, data},
   }: any = useContext(GlobalContext);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
+    }, [authDispatch, data, error]),
+  );
+
   useEffect(() => {
     if (data) {
       navigate(LOG_IN);
     }
   }, [data, navigate]);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      if (data) {
-        clearAuthState()(authDispatch);
-      }
-    }, [authDispatch, data]),
-  );
-
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
       if (name === 'password') {

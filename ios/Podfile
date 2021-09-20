@@ -25,6 +25,5 @@ target 'rnContact' do
 
   post_install do |installer|
     react_native_post_install(installer)
-    pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
   end
 end

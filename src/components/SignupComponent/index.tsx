@@ -7,7 +7,7 @@ import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
 
-interface Errors {
+export interface Errors {
   userName?: string;
   lastName?: string;
   firstName?: string;
@@ -80,7 +80,6 @@ const SignupComponent: FC<Props> = ({
         error={errors.password || error?.password?.[0]}
         secureTextEntry
       />
-      {console.log('error', error)}
       <CustomButton
         title="Submit"
         primary

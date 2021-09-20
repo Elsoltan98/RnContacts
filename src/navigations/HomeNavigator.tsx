@@ -16,9 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator
-      initialRouteName={CONTACT_LIST}
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName={CONTACT_LIST}>
       <Stack.Screen name={CONTACT_LIST} component={Contacts} />
       <Stack.Screen name={CREATE_CONTACT} component={CreateContact} />
       <Stack.Screen name={CONTACT_DETAILS} component={ContactDetails} />

@@ -1,16 +1,30 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {FC} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {REGISTER} from '../../constants/routeNames';
 import Container from '../common/Container';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
+import {ChaneArg, Errors} from '../SignupComponent';
 import styles from './styles';
 
-const LoginComponent = () => {
+interface Props {
+  form: {};
+  errors: Errors;
+  onChange: ({}: ChaneArg) => void;
+  onSubmit: () => void;
+  loading: boolean;
+  error: any;
+}
+
+const LoginComponent: FC<Props> = ({
+  errors,
+  onChange,
+  onSubmit,
+  loading,
+  error,
+}) => {
   const {navigate}: any = useNavigation();
-  const [text, onChangeText] = React.useState('');
-  const [number, onChangeNumber] = React.useState('');
   return (
     <Container>
       <Image
@@ -22,14 +36,14 @@ const LoginComponent = () => {
         <Text style={styles.subTitle}>Please login here</Text>
       </View>
       <Input
-        text={text}
-        onChangeText={onChangeText}
         label="User Name"
         placeholder="Enter name"
+        onChangeText={(value: string) => onChange({name: 'userName', value})}
+        error={errors.userName || error?.username?.[0]}
       />
       <Input
-        text={number}
-        onChangeText={onChangeNumber}
+        onChangeText={(value: string) => onChange({name: 'password', value})}
+        error={errors.password || error?.password?.[0]}
         label="Password"
         icon={<Text>Show</Text>}
         iconPosition="right"
@@ -37,7 +51,12 @@ const LoginComponent = () => {
         secureTextEntry
       />
 
-      <CustomButton title="Submit" primary onSubmit={() => {}} />
+      <CustomButton
+        title="Submit"
+        primary
+        onSubmit={onSubmit}
+        loading={loading}
+      />
       <View style={styles.footer}>
         <Text style={styles.new}>Need a new account?</Text>
         <TouchableOpacity onPress={() => navigate(REGISTER)}>
