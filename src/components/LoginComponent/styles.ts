@@ -22,4 +22,10 @@ export default StyleSheet.create({
   footer: {flexDirection: 'row'},
   new: {fontSize: 17},
   register: {fontSize: 17, color: colors.primary, paddingLeft: 5},
+  errorMsg: {
+    backgroundColor: colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 10,
+  },
 });

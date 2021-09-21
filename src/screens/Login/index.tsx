@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+
 import LoginComponent from '../../components/LoginComponent';
 import {ChaneArg} from '../../components/SignupComponent';
 import login from '../../context/actions/auth/login';
@@ -14,15 +15,49 @@ const Login = () => {
   }: any = useContext(GlobalContext);
 
   const onChange = ({name, value}: ChaneArg) => {
+    if (value !== '') {
+      if (name === 'password') {
+        if (value.length < 8) {
+          setErrors(prev => {
+            return {...prev, [name]: 'This field is needs min 8 characters!'};
+          });
+        } else {
+          setErrors(prev => {
+            return {...prev, [name]: null};
+          });
+        }
+      } else {
+        setErrors(prev => {
+          return {...prev, [name]: null};
+        });
+      }
+    } else {
+      setErrors(prev => {
+        return {...prev, [name]: 'This field is required'};
+      });
+    }
     setForm({...form, [name]: value});
   };
 
-  const onSubmit = () => {
-    if (form.userName && form.password) {
-      login(form)(authDispatch);
+  const onSubmit = async () => {
+    if (!form.userName) {
+      setErrors(prev => {
+        return {...prev, userName: 'Please add user name'};
+      });
     }
-    console.log(form);
+
+    if (!form.password) {
+      setErrors(prev => {
+        return {...prev, password: 'Please add password'};
+      });
+    }
+
+    if (form.userName && form.password) {
+      await login(form)(authDispatch);
+    }
   };
+
+  console.log(error);
 
   return (
     <LoginComponent

@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import colors from '../../colors';
 import {REGISTER} from '../../constants/routeNames';
 import Container from '../common/Container';
 import CustomButton from '../common/CustomButton';
@@ -25,6 +26,7 @@ const LoginComponent: FC<Props> = ({
   error,
 }) => {
   const {navigate}: any = useNavigation();
+
   return (
     <Container>
       <Image
@@ -35,6 +37,13 @@ const LoginComponent: FC<Props> = ({
         <Text style={styles.title}>Welcome Rn Contacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
       </View>
+      {(errors.userName || errors.password || error) && (
+        <TouchableOpacity style={styles.errorMsg}>
+          <Text style={{color: colors.white}}>
+            {error ? error.detail : 'Something wrong ! try again...'}
+          </Text>
+        </TouchableOpacity>
+      )}
       <Input
         label="User Name"
         placeholder="Enter name"
@@ -54,8 +63,8 @@ const LoginComponent: FC<Props> = ({
       <CustomButton
         title="Submit"
         primary
-        onSubmit={onSubmit}
         loading={loading}
+        onSubmit={onSubmit}
       />
       <View style={styles.footer}>
         <Text style={styles.new}>Need a new account?</Text>
