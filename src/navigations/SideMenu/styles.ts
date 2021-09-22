@@ -16,4 +16,5 @@ export default StyleSheet.create({
     paddingVertical: 7,
     paddingLeft: 20,
   },
+  menuItem: {paddingLeft: 70},
 });

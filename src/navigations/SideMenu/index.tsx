@@ -24,7 +24,7 @@ const SideMenu = ({navigation}: any) => {
           source={require('./../../assets/images/logo.png')}
           style={styles.logo}
         />
-        <View style={{paddingLeft: 70}}>
+        <View style={styles.menuItem}>
           {menuItems.map(({icon, name, onPress}) => (
             <TouchableOpacity onPress={onPress} style={styles.item} key={name}>
               {icon}
