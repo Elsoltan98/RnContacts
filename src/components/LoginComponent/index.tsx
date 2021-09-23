@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../colors';
 import {REGISTER} from '../../constants/routeNames';
@@ -26,6 +26,7 @@ const LoginComponent: FC<Props> = ({
   error,
 }) => {
   const {navigate}: any = useNavigation();
+  const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   return (
     <Container>
@@ -54,10 +55,14 @@ const LoginComponent: FC<Props> = ({
         onChangeText={(value: string) => onChange({name: 'password', value})}
         error={errors.password || error?.password?.[0]}
         label="Password"
-        icon={<Text>Show</Text>}
+        secureTextEntry={isSecureEntry}
+        icon={
+          <TouchableOpacity onPress={() => setIsSecureEntry(prev => !prev)}>
+            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+          </TouchableOpacity>
+        }
         iconPosition="right"
         placeholder="Enter Password"
-        secureTextEntry
       />
 
       <CustomButton
