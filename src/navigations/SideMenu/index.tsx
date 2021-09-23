@@ -3,9 +3,10 @@ import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Container from '../../components/common/Container';
 import {SETTINGS} from '../../constants/routeNames';
+import logout from '../../context/actions/auth/logout';
 import styles from './styles';
 
-const SideMenu = ({navigation}: any) => {
+const SideMenu = ({navigation, authDispatch}: any) => {
   const handleLogout = () => {
     navigation.toggleDrawer();
     Alert.alert('Logout !', 'Are you sure you want logout ?', [
@@ -15,7 +16,7 @@ const SideMenu = ({navigation}: any) => {
       },
       {
         text: 'Ok',
-        onPress: () => {},
+        onPress: () => logout()(authDispatch),
       },
     ]);
   };

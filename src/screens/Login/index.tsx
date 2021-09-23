@@ -57,8 +57,6 @@ const Login = () => {
     }
   };
 
-  console.log(error);
-
   return (
     <LoginComponent
       form={form}

@@ -8,11 +8,12 @@ import {ActivityIndicator} from 'react-native';
 import colors from '../colors';
 
 const AppNavContainer = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isAuthLoaded, setAuthLoaded] = useState(false);
   const {
     auth: {isLoggedIn},
   } = useContext(GlobalContext);
+
+  const [isAuthenticated, setAuthenticated] = useState(isLoggedIn);
+  const [isAuthLoaded, setAuthLoaded] = useState(false);
 
   const getUser = async () => {
     try {
@@ -31,16 +32,12 @@ const AppNavContainer = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [isLoggedIn]);
   return (
     <>
       {isAuthLoaded ? (
         <NavigationContainer>
-          {isLoggedIn || isAuthenticated ? (
-            <DrawerNavigator />
-          ) : (
-            <AuthNavigator />
-          )}
+          {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       ) : (
         <ActivityIndicator
