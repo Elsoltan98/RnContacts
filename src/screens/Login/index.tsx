@@ -1,4 +1,5 @@
-import React, {useContext, useState} from 'react';
+import {useRoute} from '@react-navigation/native';
+import React, {useContext, useEffect, useState} from 'react';
 
 import LoginComponent from '../../components/LoginComponent';
 import {ChaneArg} from '../../components/SignupComponent';
@@ -7,12 +8,20 @@ import {GlobalContext} from '../../context/Provider';
 import {Form} from '../Register';
 
 const Login = () => {
+  const {params} = useRoute();
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
   const {
     authDispatch,
     auth: {error, loading},
   }: any = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (params?.data) {
+      console.log(params);
+      setForm({...form, userName: params.data.username});
+    }
+  }, [params]);
 
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import SignupComponent, {ChaneArg} from '../../components/SignupComponent';
 import register, {clearAuthState} from '../../context/actions/auth/register';
@@ -32,11 +32,6 @@ const Register = () => {
     }, [authDispatch, data, error]),
   );
 
-  useEffect(() => {
-    if (data) {
-      navigate(LOG_IN);
-    }
-  }, [data, navigate]);
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
       if (name === 'password') {
@@ -94,7 +89,9 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      register(form)(authDispatch);
+      register(form)(authDispatch)(response => {
+        navigate(LOG_IN, {data: response});
+      });
     }
   };
 

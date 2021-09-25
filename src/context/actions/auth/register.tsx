@@ -21,7 +21,8 @@ export default ({
     email,
     password,
   }: Form) =>
-  (dispatch: (arg0: {type: string; payload?: any}) => void) => {
+  (dispatch: (arg0: {type: string; payload?: any}) => void) =>
+  (onSuccess: (arg0: any) => void) => {
     dispatch({
       type: REGISTER_LOADING,
     });
@@ -34,10 +35,12 @@ export default ({
         password,
       })
       .then(res => {
-        return dispatch({
+        dispatch({
           type: REGISTER_SUCCESS,
           payload: res.data,
         });
+
+        onSuccess(res.data);
       })
       .catch(err => {
         return dispatch({

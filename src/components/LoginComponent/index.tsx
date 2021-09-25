@@ -3,6 +3,7 @@ import React, {FC, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../colors';
 import {REGISTER} from '../../constants/routeNames';
+import {Form} from '../../screens/Register';
 import Container from '../common/Container';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
@@ -10,7 +11,7 @@ import {ChaneArg, Errors} from '../SignupComponent';
 import styles from './styles';
 
 interface Props {
-  form: {};
+  form: Form;
   errors: Errors;
   onChange: ({}: ChaneArg) => void;
   onSubmit: () => void;
@@ -24,6 +25,7 @@ const LoginComponent: FC<Props> = ({
   onSubmit,
   loading,
   error,
+  form,
 }) => {
   const {navigate}: any = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -48,6 +50,7 @@ const LoginComponent: FC<Props> = ({
       <Input
         label="User Name"
         placeholder="Enter name"
+        value={form.userName || null}
         onChangeText={(value: string) => onChange({name: 'userName', value})}
         error={errors.userName || error?.username?.[0]}
       />

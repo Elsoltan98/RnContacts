@@ -13,11 +13,11 @@ interface Props {
   error?: string;
   placeholder?: string;
   secureTextEntry?: boolean;
+  value?: string | null;
 }
 
 const Input: FC<Props> = ({
   onChangeText,
-  text,
   label,
   icon,
   style,
@@ -25,6 +25,7 @@ const Input: FC<Props> = ({
   error,
   placeholder,
   secureTextEntry,
+  value,
 }) => {
   const [focused, setFocused] = React.useState<boolean | null>(null);
   const getFlexDirection = () => {
@@ -61,7 +62,7 @@ const Input: FC<Props> = ({
         <TextInput
           style={[style, styles.textInput]}
           onChangeText={onChangeText}
-          value={text}
+          value={value}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           placeholder={placeholder}
