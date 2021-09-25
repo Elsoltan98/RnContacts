@@ -28,4 +28,10 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginVertical: 10,
   },
+  successMsg: {
+    backgroundColor: colors.success,
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 10,
+  },
 });

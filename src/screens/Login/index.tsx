@@ -8,9 +8,10 @@ import {GlobalContext} from '../../context/Provider';
 import {Form} from '../Register';
 
 const Login = () => {
-  const {params} = useRoute();
+  const {params}: any = useRoute();
   const [form, setForm] = useState<Form>({});
   const [errors, setErrors] = useState({});
+  const [justSignedUp, setJustSignedUp] = useState(false);
   const {
     authDispatch,
     auth: {error, loading},
@@ -18,9 +19,10 @@ const Login = () => {
 
   useEffect(() => {
     if (params?.data) {
-      console.log(params);
+      setJustSignedUp(true);
       setForm({...form, userName: params.data.username});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
   const onChange = ({name, value}: ChaneArg) => {
@@ -46,6 +48,7 @@ const Login = () => {
       });
     }
     setForm({...form, [name]: value});
+    setJustSignedUp(false);
   };
 
   const onSubmit = async () => {
@@ -74,6 +77,7 @@ const Login = () => {
       errors={errors}
       error={error}
       loading={loading}
+      justSignedUp={justSignedUp}
     />
   );
 };

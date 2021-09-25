@@ -17,6 +17,7 @@ interface Props {
   onSubmit: () => void;
   loading: boolean;
   error: any;
+  justSignedUp: any;
 }
 
 const LoginComponent: FC<Props> = ({
@@ -26,6 +27,7 @@ const LoginComponent: FC<Props> = ({
   loading,
   error,
   form,
+  justSignedUp,
 }) => {
   const {navigate}: any = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -40,13 +42,22 @@ const LoginComponent: FC<Props> = ({
         <Text style={styles.title}>Welcome Rn Contacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
       </View>
-      {(errors.userName || errors.password || error) && (
-        <TouchableOpacity style={styles.errorMsg}>
-          <Text style={{color: colors.white}}>
-            {error ? error.detail : 'Something wrong ! try again...'}
-          </Text>
-        </TouchableOpacity>
-      )}
+      <View>
+        {justSignedUp && (
+          <TouchableOpacity style={styles.successMsg}>
+            <Text style={{color: colors.white}}>
+              Account created successfully
+            </Text>
+          </TouchableOpacity>
+        )}
+        {(errors.userName || errors.password || error) && (
+          <TouchableOpacity style={styles.errorMsg}>
+            <Text style={{color: colors.white}}>
+              {error ? error.detail : 'Something wrong ! try again...'}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
       <Input
         label="User Name"
         placeholder="Enter name"
