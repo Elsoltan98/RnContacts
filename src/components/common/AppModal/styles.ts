@@ -20,6 +20,17 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    borderBottomColor: '#e3e3e3',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+  },
+  title: {
+    fontSize: 17,
+  },
+  body: {
+    minHeight: 300,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   footer: {
     flexDirection: 'row',

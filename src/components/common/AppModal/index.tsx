@@ -31,23 +31,27 @@ const AppModal: FC<Prop> = ({
               size={21}
               onPress={() => setVisible(false)}
             />
-            <Text>{title ? title : 'RnContacts'}</Text>
+            <Text style={styles.title}>{title ? title : 'RnContacts'}</Text>
+            <View />
+            <View />
+            <View />
+            <View />
             <View />
             <View />
             <View />
             <View />
             <View />
           </View>
-          <View>{ViewBody}</View>
-          <View style={styles.footer}>
+          {ViewBody && <View style={styles.body}>{ViewBody}</View>}
+          <View>
             {ViewFooter ? (
               ViewFooter
             ) : (
-              <>
+              <View style={styles.footer}>
                 <Text>Privacy policy</Text>
                 <View style={styles.dot} />
                 <Text>Terms of service</Text>
-              </>
+              </View>
             )}
           </View>
         </View>
