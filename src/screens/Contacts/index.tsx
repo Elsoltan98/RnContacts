@@ -1,10 +1,12 @@
 import {DrawerToggleButton} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
+import ContactsComponent from '../../components/ContactsComponent';
 
 const Contacts = () => {
   const {setOptions} = useNavigation();
+  const [modalVisible, setModalVisibile] = useState(false);
 
   useEffect(() => {
     setOptions({
@@ -17,9 +19,7 @@ const Contacts = () => {
   }, [setOptions]);
 
   return (
-    <View>
-      <Text>Conacts screen</Text>
-    </View>
+    <ContactsComponent visible={modalVisible} setVisible={setModalVisibile} />
   );
 };
 
