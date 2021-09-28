@@ -6,6 +6,7 @@ import {REGISTER} from '../../constants/routeNames';
 import {Form} from '../../screens/Register';
 import Container from '../common/Container';
 import CustomButton from '../common/CustomButton';
+import Icon from '../common/Icon';
 import Input from '../common/Input';
 import {ChaneArg, Errors} from '../SignupComponent';
 import styles from './styles';
@@ -72,7 +73,12 @@ const LoginComponent: FC<Props> = ({
         secureTextEntry={isSecureEntry}
         icon={
           <TouchableOpacity onPress={() => setIsSecureEntry(prev => !prev)}>
-            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+            <Icon
+              type="Entypo"
+              name={isSecureEntry ? 'eye' : 'eye-with-line'}
+              size={21}
+              color={'#333'}
+            />
           </TouchableOpacity>
         }
         iconPosition="right"

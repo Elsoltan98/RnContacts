@@ -35,9 +35,9 @@ const Register = () => {
   const onChange = ({name, value}: ChaneArg) => {
     if (value !== '') {
       if (name === 'password') {
-        if (value.length < 6) {
+        if (value.length < 8) {
           setErrors(prev => {
-            return {...prev, [name]: 'This field is needs min 6 characters!'};
+            return {...prev, [name]: 'This field is needs min 8 characters!'};
           });
         } else {
           setErrors(prev => {

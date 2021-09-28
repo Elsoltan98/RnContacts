@@ -4,6 +4,7 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {LOG_IN} from '../../constants/routeNames';
 import Container from '../common/Container';
 import CustomButton from '../common/CustomButton';
+import Icon from '../common/Icon';
 import Input from '../common/Input';
 import styles from './styles';
 
@@ -81,7 +82,12 @@ const SignupComponent: FC<Props> = ({
         secureTextEntry={isSecureEntry}
         icon={
           <TouchableOpacity onPress={() => setIsSecureEntry(prev => !prev)}>
-            <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+            <Icon
+              type="Entypo"
+              name={isSecureEntry ? 'eye' : 'eye-with-line'}
+              size={21}
+              color={'#333'}
+            />
           </TouchableOpacity>
         }
       />
