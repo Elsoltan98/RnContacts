@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import AppModal from '../common/AppModal';
-import CustomButton from '../common/CustomButton';
 
 interface Prop {
   visible: boolean;
@@ -9,6 +9,14 @@ interface Prop {
 }
 
 const ContactsComponent: FC<Prop> = ({visible, setVisible}) => {
+  const renderItem = () => {
+    return (
+      <View>
+        <Text>Contacts</Text>
+      </View>
+    );
+  };
+
   return (
     <View>
       <AppModal
@@ -18,10 +26,10 @@ const ContactsComponent: FC<Prop> = ({visible, setVisible}) => {
         ViewBody={<Text>Hello from Modal</Text>}
         ViewFooter={<></>}
       />
-      <CustomButton
-        title="Open Modal"
-        onSubmit={() => setVisible(true)}
-        danger
+      <FlatList
+        data={[]}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
       />
     </View>
   );
