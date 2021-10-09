@@ -5,9 +5,10 @@ import Input from '../common/Input';
 import styles from './styles';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
+import {FormInputs} from '../../screens/Register';
 
 interface Prop {
-  form?: {};
+  form?: FormInputs;
   setForm?: any;
   onChangeText?: ({name, value}: any) => any;
   onSubmit?: () => void;
@@ -56,7 +57,7 @@ const CreateContactComponent: FC<Prop> = ({
           <CountryPicker
             withFilter
             withFlag
-            countryCode={form.countryCode || undefined}
+            countryCode={form?.countryCode || undefined}
             withCallingCodeButton
             withCountryNameButton={false}
             withEmoji

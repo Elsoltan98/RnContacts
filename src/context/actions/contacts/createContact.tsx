@@ -7,7 +7,8 @@ import instance from '../../../helpers/axiosInterceptors';
 import {FormInputs} from '../../../screens/Register';
 
 export default (form: FormInputs) =>
-  (dispatch: (arg0: {type: string; payload?: any}) => void) => {
+  (dispatch: (arg0: {type: string; payload?: any}) => void) =>
+  onSuccess => {
     const requestPayload = {
       country_code: form.countryCode || '',
       first_name: form.firstName || '',
@@ -28,7 +29,7 @@ export default (form: FormInputs) =>
           type: CREATE_CONTACTS_SUCCESS,
           payload: res.data,
         });
-        console.log(res.data);
+        onSuccess();
       })
       .catch(err => {
         dispatch({

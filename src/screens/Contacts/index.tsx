@@ -19,8 +19,7 @@ const Contacts = () => {
 
   useEffect(() => {
     getContacts()(contactsDispatch);
-    // console.log(getContacts()(contactsDispatch));
-  }, [contactsDispatch]);
+  }, [contactsDispatch, data]);
 
   // console.log(data, loading);
 
