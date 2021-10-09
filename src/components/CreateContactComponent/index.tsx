@@ -9,8 +9,11 @@ import {DEFAULT_IMAGE_URI} from '../../constants/general';
 interface Prop {
   form?: {};
   setForm?: any;
-  onChangeText?: ({}) => void;
+  onChangeText?: ({name, value}: any) => any;
   onSubmit?: () => void;
+  loading?: boolean;
+  error?: string;
+  data?: {};
 }
 
 const CreateContactComponent: FC<Prop> = ({
@@ -18,6 +21,9 @@ const CreateContactComponent: FC<Prop> = ({
   setForm,
   onSubmit,
   onChangeText,
+  loading,
+  error,
+  data,
 }) => {
   return (
     <View style={styles.container}>
@@ -29,6 +35,7 @@ const CreateContactComponent: FC<Prop> = ({
         onChangeText={value => {
           onChangeText({name: 'firstName', value: value});
         }}
+        error={error?.first_name?.[0]}
       />
       <Input
         label="Last name"
@@ -36,10 +43,12 @@ const CreateContactComponent: FC<Prop> = ({
         onChangeText={value => {
           onChangeText({name: 'lastName', value: value});
         }}
+        error={error?.last_name?.[0]}
       />
       <Input
         label="Phone number"
         placeholder="Enter phone number"
+        error={error?.phone_number?.[0]}
         onChangeText={value => {
           onChangeText({name: 'phoneNumber', value: value});
         }}
@@ -60,7 +69,13 @@ const CreateContactComponent: FC<Prop> = ({
         }
         iconPosition="left"
       />
-      <CustomButton title="Submit" onSubmit={onSubmit} primary />
+      <CustomButton
+        title="Submit"
+        loading={loading}
+        disabled={loading}
+        onSubmit={onSubmit}
+        primary
+      />
     </View>
   );
 };

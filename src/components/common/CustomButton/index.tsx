@@ -45,7 +45,7 @@ const CustomButton: FC<Props> = ({
         {title && (
           <Text
             style={{color: disabled ? 'black' : colors.white, paddingLeft: 5}}>
-            {title}
+            {loading ? 'Please wating...' : title}
           </Text>
         )}
       </View>

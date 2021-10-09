@@ -5,17 +5,21 @@ import register, {clearAuthState} from '../../context/actions/auth/register';
 import {GlobalContext} from '../../context/Provider';
 import {LOG_IN} from '../../constants/routeNames';
 
-export interface Form {
+export interface FormInputs {
   userName?: string;
   lastName?: string;
   firstName?: string;
   email?: string;
   password?: string;
+  countryCode?: string;
+  phoneNumber?: string;
+  contactPicture?: string;
+  isFavorite?: boolean;
 }
 
 const Register = () => {
   const {navigate}: any = useNavigation();
-  const [form, setForm] = useState<Form>({});
+  const [form, setForm] = useState<FormInputs>({});
   const [errors, setErrors] = useState({});
   const {
     authDispatch,

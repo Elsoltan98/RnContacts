@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import CreateContactComponent from '../../components/CreateContactComponent';
+import createContact from '../../context/actions/contacts/createContact';
+import {GlobalContext} from '../../context/Provider';
 
 const CreateContact = () => {
   const [form, setForm] = useState({});
@@ -7,9 +9,17 @@ const CreateContact = () => {
     setForm({...form, [name]: value});
   };
 
+  const {
+    contactsDispatch,
+    contacts: {
+      createContacts: {data, error, loading},
+    },
+  } = useContext(GlobalContext);
+
+  console.log('error', error);
+
   const onSubmit = () => {
-    console.log(1111, '1111');
-    console.log('Form', form);
+    createContact(form)(contactsDispatch);
   };
 
   return (
@@ -18,6 +28,9 @@ const CreateContact = () => {
       setForm={setForm}
       onChangeText={onChangeText}
       onSubmit={onSubmit}
+      error={error}
+      loading={loading}
+      data={data}
     />
   );
 };

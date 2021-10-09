@@ -1,4 +1,7 @@
 import {
+  CREATE_CONTACTS_FAIL,
+  CREATE_CONTACTS_LOADING,
+  CREATE_CONTACTS_SUCCESS,
   GET_CONTACTS_FAIL,
   GET_CONTACTS_LOADING,
   GET_CONTACTS_SUCCESS,
@@ -15,6 +18,15 @@ const contactsReducer = (state: any, action: any) => {
           error: null,
         },
       };
+    case CREATE_CONTACTS_LOADING:
+      return {
+        ...state,
+        createContacts: {
+          ...state.createContacts,
+          loading: true,
+          error: null,
+        },
+      };
     case GET_CONTACTS_SUCCESS:
       return {
         ...state,
@@ -25,11 +37,30 @@ const contactsReducer = (state: any, action: any) => {
           error: null,
         },
       };
+    case CREATE_CONTACTS_SUCCESS:
+      return {
+        ...state,
+        createContacts: {
+          ...state.createContacts,
+          data: action.payload,
+          loading: false,
+          error: null,
+        },
+      };
     case GET_CONTACTS_FAIL:
       return {
         ...state,
         getContacts: {
           ...state.getContacts,
+          loading: false,
+          error: action.payload,
+        },
+      };
+    case CREATE_CONTACTS_FAIL:
+      return {
+        ...state,
+        createContacts: {
+          ...state.createContacts,
           loading: false,
           error: action.payload,
         },
