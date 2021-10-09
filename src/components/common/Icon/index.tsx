@@ -38,6 +38,9 @@ const getIconName = (type: string) => {
       return Octicons;
     case 'Zocial':
       return Zocial;
+
+    default:
+      return AntDesign;
   }
 };
 

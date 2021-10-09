@@ -19,9 +19,9 @@ const Contacts = () => {
 
   useEffect(() => {
     getContacts()(contactsDispatch);
-  }, [contactsDispatch, data]);
+  }, [contactsDispatch]);
 
-  // console.log(data, loading);
+  console.log(loading);
 
   useEffect(() => {
     setOptions({
@@ -34,7 +34,12 @@ const Contacts = () => {
   }, [setOptions]);
 
   return (
-    <ContactsComponent visible={modalVisible} setVisible={setModalVisibile} />
+    <ContactsComponent
+      data={data}
+      loading={loading}
+      visible={modalVisible}
+      setVisible={setModalVisibile}
+    />
   );
 };
 
