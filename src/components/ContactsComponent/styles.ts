@@ -4,7 +4,7 @@ import colors from '../../colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: colors.white,
   },
   floatButton: {
     backgroundColor: 'red',
@@ -33,23 +33,42 @@ export default StyleSheet.create({
     height: 50,
   },
   noPicture: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     backgroundColor: colors.grey,
     borderRadius: 100,
     marginRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  name: {
+  textName: {
+    color: colors.white,
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  nameContainer: {
     flexDirection: 'row',
   },
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    padding: 15,
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  line: {
+    height: 0.5,
+    backgroundColor: colors.grey,
+  },
+  name: {
+    fontSize: 18,
+  },
+  phoneNumber: {
+    fontSize: 13,
+    opacity: 0.6,
   },
 });

@@ -2,6 +2,7 @@ import {DrawerToggleButton} from '@react-navigation/drawer';
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {View} from 'react-native';
+import colors from '../../colors';
 import ContactsComponent from '../../components/ContactsComponent';
 import getContacts from '../../context/actions/contacts/getContacts';
 import {GlobalContext} from '../../context/Provider';
@@ -15,7 +16,7 @@ const Contacts = () => {
       getContacts: {data, loading},
     },
     contactsDispatch,
-  } = useContext(GlobalContext);
+  }: any = useContext(GlobalContext);
 
   useEffect(() => {
     getContacts()(contactsDispatch);
@@ -26,8 +27,8 @@ const Contacts = () => {
   useEffect(() => {
     setOptions({
       headerLeft: () => (
-        <View style={{marginLeft: -15}}>
-          <DrawerToggleButton />
+        <View style={{marginLeft: -10}}>
+          <DrawerToggleButton tintColor={colors.grey} />
         </View>
       ),
     });

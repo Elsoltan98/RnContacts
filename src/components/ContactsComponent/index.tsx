@@ -23,8 +23,8 @@ interface Prop {
 }
 
 const ContactsComponent: FC<Prop> = ({visible, setVisible, data, loading}) => {
-  const {navigate} = useNavigation();
-  const renderItem = ({item}) => {
+  const {navigate}: any = useNavigation();
+  const renderItem = ({item}: any) => {
     return (
       <TouchableOpacity style={styles.itemContainer}>
         <View style={styles.item}>
@@ -34,14 +34,23 @@ const ContactsComponent: FC<Prop> = ({visible, setVisible, data, loading}) => {
               style={styles.picture}
             />
           ) : (
-            <View style={styles.noPicture} />
+            <View style={styles.noPicture}>
+              <Text style={styles.textName}>{item.first_name[0]}</Text>
+              <Text style={styles.textName}>{item.last_name[0]}</Text>
+            </View>
           )}
-          <View style={styles.name}>
-            <Text>{item.first_name}</Text>
-            <Text> {item.last_name}</Text>
+          <View>
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{item.first_name}</Text>
+              <Text style={styles.name}> {item.last_name}</Text>
+            </View>
+            <Text
+              style={
+                styles.phoneNumber
+              }>{`${item.country_code} ${item.phone_number}`}</Text>
           </View>
         </View>
-        <Icon name="right" />
+        <Icon name="right" color={colors.grey} size={17} />
       </TouchableOpacity>
     );
   };
@@ -64,24 +73,30 @@ const ContactsComponent: FC<Prop> = ({visible, setVisible, data, loading}) => {
         ViewFooter={<></>}
       />
 
-      {loading && <ActivityIndicator size="large" color={colors.primary} />}
+      {loading && (
+        <ActivityIndicator
+          size="large"
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          color={colors.primary}
+        />
+      )}
 
       {!loading && (
-        <>
+        <View>
           <FlatList
             data={data}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             ListEmptyComponent={ListEmptyComponent}
+            ItemSeparatorComponent={() => <View style={styles.line} />}
           />
-
-          <TouchableOpacity
-            style={styles.floatButton}
-            onPress={() => navigate(CREATE_CONTACT)}>
-            <Icon type="AntDesign" name="plus" color={colors.white} size={25} />
-          </TouchableOpacity>
-        </>
+        </View>
       )}
+      <TouchableOpacity
+        style={styles.floatButton}
+        onPress={() => navigate(CREATE_CONTACT)}>
+        <Icon type="AntDesign" name="plus" color={colors.white} size={25} />
+      </TouchableOpacity>
     </View>
   );
 };

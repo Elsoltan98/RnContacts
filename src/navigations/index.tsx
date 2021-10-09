@@ -10,7 +10,7 @@ import colors from '../colors';
 const AppNavContainer = () => {
   const {
     auth: {isLoggedIn},
-  } = useContext(GlobalContext);
+  }: any = useContext(GlobalContext);
 
   const [isAuthenticated, setAuthenticated] = useState(isLoggedIn);
   const [isAuthLoaded, setAuthLoaded] = useState(false);
