@@ -1,20 +1,22 @@
 import React, {FC} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Switch, Text, View} from 'react-native';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {FormInputs} from '../../screens/Register';
+import colors from '../../colors';
 
 interface Prop {
   form?: FormInputs;
   setForm?: any;
-  onChangeText?: ({name, value}: any) => any;
-  onSubmit?: () => void;
+  onChangeText?: any;
+  onSubmit?: any;
   loading?: boolean;
   error?: string;
   data?: {};
+  toggleSwitch?: () => void;
 }
 
 const CreateContactComponent: FC<Prop> = ({
@@ -24,7 +26,7 @@ const CreateContactComponent: FC<Prop> = ({
   onChangeText,
   loading,
   error,
-  data,
+  toggleSwitch,
 }) => {
   return (
     <View style={styles.container}>
@@ -70,6 +72,16 @@ const CreateContactComponent: FC<Prop> = ({
         }
         iconPosition="left"
       />
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchText}>Add to favorite</Text>
+        <Switch
+          trackColor={{false: '#767577', true: colors.primary}}
+          thumbColor={colors.white}
+          ios_backgroundColor="#333"
+          onValueChange={toggleSwitch}
+          value={form?.isFavorite}
+        />
+      </View>
       <CustomButton
         title="Submit"
         loading={loading}

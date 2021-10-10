@@ -46,6 +46,12 @@ const contactsReducer = (state: any, action: any) => {
           loading: false,
           error: null,
         },
+        getContacts: {
+          ...state.getContacts,
+          data: [action.payload, ...state.getContacts.data],
+          loading: false,
+          error: null,
+        },
       };
     case GET_CONTACTS_FAIL:
       return {

@@ -4,10 +4,11 @@ import CreateContactComponent from '../../components/CreateContactComponent';
 import {CONTACT_LIST} from '../../constants/routeNames';
 import createContact from '../../context/actions/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
+import {FormInputs} from '../Register';
 
 const CreateContact = () => {
-  const {navigate} = useNavigation();
-  const [form, setForm] = useState({});
+  const {navigate}: any = useNavigation();
+  const [form, setForm] = useState<FormInputs>({});
   const onChangeText = ({name, value}: any) => {
     setForm({...form, [name]: value});
   };
@@ -17,14 +18,16 @@ const CreateContact = () => {
     contacts: {
       createContacts: {data, error, loading},
     },
-  } = useContext(GlobalContext);
-
-  console.log('error', error);
+  }: any = useContext(GlobalContext);
 
   const onSubmit = () => {
     createContact(form)(contactsDispatch)(() => {
       navigate(CONTACT_LIST);
     });
+  };
+
+  const toggleSwitch = () => {
+    setForm({...form, isFavorite: !form.isFavorite});
   };
 
   return (
@@ -36,6 +39,7 @@ const CreateContact = () => {
       error={error}
       loading={loading}
       data={data}
+      toggleSwitch={toggleSwitch}
     />
   );
 };

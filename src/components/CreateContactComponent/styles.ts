@@ -19,4 +19,15 @@ export default StyleSheet.create({
     fontSize: 17,
     paddingVertical: 10,
   },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  switchText: {
+    fontSize: 17,
+    color: '#333',
+    fontWeight: '500',
+  },
 });

@@ -8,14 +8,14 @@ import {FormInputs} from '../../../screens/Register';
 
 export default (form: FormInputs) =>
   (dispatch: (arg0: {type: string; payload?: any}) => void) =>
-  onSuccess => {
+  (onSuccess: () => void) => {
     const requestPayload = {
       country_code: form.countryCode || '',
       first_name: form.firstName || '',
       last_name: form.lastName || '',
       phone_number: form.phoneNumber || '',
       contact_picture: form.contactPicture || null,
-      is_favorite: false,
+      is_favorite: form.isFavorite,
     };
 
     dispatch({
