@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Image, Switch, Text, View} from 'react-native';
+import {Image, Switch, Text, TouchableOpacity, View} from 'react-native';
 import CustomButton from '../common/CustomButton';
 import Input from '../common/Input';
 import styles from './styles';
@@ -7,6 +7,7 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import {FormInputs} from '../../screens/Register';
 import colors from '../../colors';
+import ImagePicker from '../common/ImagePicker';
 
 interface Prop {
   form?: FormInputs;
@@ -17,6 +18,9 @@ interface Prop {
   error?: string;
   data?: {};
   toggleSwitch?: () => void;
+  sheetRef?: any;
+  openSheet?: any;
+  closeSheet?: any;
 }
 
 const CreateContactComponent: FC<Prop> = ({
@@ -27,11 +31,16 @@ const CreateContactComponent: FC<Prop> = ({
   loading,
   error,
   toggleSwitch,
+  sheetRef,
+  openSheet,
+  closeSheet,
 }) => {
   return (
     <View style={styles.container}>
       <Image source={{uri: DEFAULT_IMAGE_URI}} style={styles.defaultImage} />
-      <Text style={styles.choose}>Choose photo</Text>
+      <TouchableOpacity onPress={openSheet}>
+        <Text style={styles.choose}>Choose photo</Text>
+      </TouchableOpacity>
       <Input
         label="First name"
         placeholder="Enter first name"
@@ -89,6 +98,8 @@ const CreateContactComponent: FC<Prop> = ({
         onSubmit={onSubmit}
         primary
       />
+
+      <ImagePicker ref={sheetRef} />
     </View>
   );
 };

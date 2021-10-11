@@ -15,7 +15,7 @@ export default (form: FormInputs) =>
       last_name: form.lastName || '',
       phone_number: form.phoneNumber || '',
       contact_picture: form.contactPicture || null,
-      is_favorite: form.isFavorite,
+      is_favorite: form.isFavorite || false,
     };
 
     dispatch({

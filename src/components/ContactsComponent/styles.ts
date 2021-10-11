@@ -7,7 +7,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   floatButton: {
-    backgroundColor: 'red',
+    backgroundColor: colors.primary,
     width: 50,
     height: 50,
     borderRadius: 100,
