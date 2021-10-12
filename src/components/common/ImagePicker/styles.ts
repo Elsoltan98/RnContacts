@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   optionsContainer: {
-    padding: 65,
+    paddingVertical: 40,
+    paddingHorizontal: 50,
   },
   option: {
     flexDirection: 'row',

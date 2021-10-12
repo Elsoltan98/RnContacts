@@ -4,6 +4,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import colors from '../../../colors';
 import Icon from '../Icon';
 import styles from './styles';
+import ImagePickerCrop from 'react-native-image-crop-picker';
 
 const ImagePicker = React.forwardRef(({}, ref) => {
   const options = [
@@ -15,7 +16,20 @@ const ImagePicker = React.forwardRef(({}, ref) => {
     {
       name: 'Choose from gallery',
       icon: <Icon type="Entypo" name="image" size={21} color={colors.grey} />,
-      onPress: () => {},
+      onPress: () => {
+        ImagePickerCrop.openPicker({
+          width: 300,
+          height: 300,
+          cropping: true,
+          freeStyleCropEnabled: true,
+        })
+          .then((image: any) => {
+            console.log(image);
+          })
+          .catch((err: any) => {
+            console.log('err', err);
+          });
+      },
     },
   ];
 
@@ -23,8 +37,8 @@ const ImagePicker = React.forwardRef(({}, ref) => {
     <RBSheet
       ref={ref}
       closeOnDragDown
-      height={250}
-      openDuration={150}
+      height={200}
+      openDuration={100}
       customStyles={{
         container: {
           borderTopLeftRadius: 50,
@@ -34,7 +48,10 @@ const ImagePicker = React.forwardRef(({}, ref) => {
       <View style={styles.optionsContainer}>
         {options.map(option => {
           return (
-            <TouchableOpacity style={styles.option} key={option.name}>
+            <TouchableOpacity
+              onPress={option.onPress}
+              style={styles.option}
+              key={option.name}>
               {option.icon}
               <Text style={styles.name}>{option.name}</Text>
             </TouchableOpacity>
