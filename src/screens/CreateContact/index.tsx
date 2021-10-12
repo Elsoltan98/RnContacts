@@ -9,6 +9,7 @@ import {FormInputs} from '../Register';
 const CreateContact = () => {
   const {navigate}: any = useNavigation();
   const [form, setForm] = useState<FormInputs>({});
+  const [localFile, setLocalFile] = useState();
   const onChangeText = ({name, value}: any) => {
     setForm({...form, [name]: value});
   };
@@ -43,6 +44,11 @@ const CreateContact = () => {
     }
   };
 
+  const onImageSelected = (image: any) => {
+    closeSheet();
+    setLocalFile(image);
+  };
+
   return (
     <CreateContactComponent
       form={form}
@@ -56,6 +62,8 @@ const CreateContact = () => {
       openSheet={openSheet}
       closeSheet={closeSheet}
       sheetRef={sheetRef}
+      onImageSelected={onImageSelected}
+      localFile={localFile}
     />
   );
 };

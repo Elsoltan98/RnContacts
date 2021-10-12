@@ -6,12 +6,25 @@ import Icon from '../Icon';
 import styles from './styles';
 import ImagePickerCrop from 'react-native-image-crop-picker';
 
-const ImagePicker = React.forwardRef(({}, ref) => {
+const ImagePicker = React.forwardRef(({onImageSelected}, ref) => {
   const options = [
     {
       name: 'Take a photo',
       icon: <Icon type="Entypo" name="camera" size={21} color={colors.grey} />,
-      onPress: () => {},
+      onPress: () => {
+        ImagePickerCrop.openCamera({
+          width: 300,
+          height: 300,
+          cropping: true,
+          freeStyleCropEnabled: true,
+        })
+          .then((image: any) => {
+            onImageSelected(image);
+          })
+          .catch((err: any) => {
+            console.log('err', err);
+          });
+      },
     },
     {
       name: 'Choose from gallery',
@@ -24,7 +37,7 @@ const ImagePicker = React.forwardRef(({}, ref) => {
           freeStyleCropEnabled: true,
         })
           .then((image: any) => {
-            console.log(image);
+            onImageSelected(image);
           })
           .catch((err: any) => {
             console.log('err', err);

@@ -21,6 +21,8 @@ interface Prop {
   sheetRef?: any;
   openSheet?: any;
   closeSheet?: any;
+  onImageSelected?: (image: any) => void;
+  localFile?: any;
 }
 
 const CreateContactComponent: FC<Prop> = ({
@@ -33,11 +35,15 @@ const CreateContactComponent: FC<Prop> = ({
   toggleSwitch,
   sheetRef,
   openSheet,
-  closeSheet,
+  localFile,
+  onImageSelected,
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={{uri: DEFAULT_IMAGE_URI}} style={styles.defaultImage} />
+      <Image
+        source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
+        style={styles.defaultImage}
+      />
       <TouchableOpacity onPress={openSheet}>
         <Text style={styles.choose}>Choose photo</Text>
       </TouchableOpacity>
@@ -99,7 +105,7 @@ const CreateContactComponent: FC<Prop> = ({
         primary
       />
 
-      <ImagePicker ref={sheetRef} />
+      <ImagePicker ref={sheetRef} onImageSelected={onImageSelected} />
     </View>
   );
 };
