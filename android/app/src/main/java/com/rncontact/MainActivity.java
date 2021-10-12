@@ -1,4 +1,4 @@
-package com.rncontact;
+package com.soltan.rnContacts;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 

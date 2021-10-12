@@ -19,8 +19,8 @@ interface Prop {
   data?: {};
   toggleSwitch?: () => void;
   sheetRef?: any;
-  openSheet?: any;
-  closeSheet?: any;
+  openSheet?: () => void;
+  closeSheet?: () => void;
   onImageSelected?: (image: any) => void;
   localFile?: any;
 }
