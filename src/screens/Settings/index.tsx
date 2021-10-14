@@ -3,8 +3,13 @@ import React, {useEffect, useState} from 'react';
 import SettingsComponent from '../../components/SettingsComponent';
 
 const Settings = () => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
+
+  const sortByChecked = (key: string, value: string) => {
+    AsyncStorage.setItem(key, value);
+  };
 
   const settingsOptions = [
     {title: 'My Info', subTitle: 'Setup your profile', onPress: () => {}},
@@ -17,7 +22,7 @@ const Settings = () => {
     {title: 'Contacts to display', subTitle: 'All contacts', onPress: () => {}},
     {
       title: 'Sort by',
-      subTitle: 'name',
+      subTitle: sortBy,
       onPress: () => {
         setVisible(true);
       },
@@ -30,13 +35,33 @@ const Settings = () => {
   ];
 
   const sortOptions = [
-    {name: 'First name', selected: false},
-    {name: 'Last name', selected: false},
+    {
+      name: 'First name',
+      selected: sortBy === 'First Name',
+      onPress: () => {
+        sortByChecked('sort by', 'First Name');
+        setSortBy('First Name');
+        setVisible(false);
+      },
+    },
+    {
+      name: 'Last name',
+      selected: sortBy === 'Last Name',
+      onPress: () => {
+        sortByChecked('sort by', 'Last Name');
+        setSortBy('Last Name');
+        setVisible(false);
+      },
+    },
   ];
 
   const getSettings = async () => {
     const user: any = await AsyncStorage.getItem('user');
     setEmail(JSON.parse(user).email);
+    const sortPref = await AsyncStorage.getItem('sort by');
+    if (sortPref) {
+      setSortBy(sortPref);
+    }
   };
 
   useEffect(() => {

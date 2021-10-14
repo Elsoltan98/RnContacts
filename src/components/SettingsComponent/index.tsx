@@ -9,7 +9,7 @@ interface Prop {
   options?: [{title: string; subTitle: string; onPress: () => void}];
   visible?: boolean;
   setVisible?: any;
-  sortOptions?: [{name: string; selected: boolean}];
+  sortOptions?: [{name: string; selected: boolean; onPress: () => void}];
 }
 
 const SettingsComponent: FC<Prop> = ({
@@ -22,9 +22,12 @@ const SettingsComponent: FC<Prop> = ({
     <View>
       {sortOptions.map(option => {
         return (
-          <TouchableOpacity style={styles.sortContainer}>
-            <Text>{option.name}</Text>
-            {true && <Icon name="check" />}
+          <TouchableOpacity
+            key={option.name}
+            onPress={option.onPress}
+            style={styles.sortContainer}>
+            <Text style={styles.name}>{option.name}</Text>
+            {option.selected && <Icon name="check" size={17} />}
           </TouchableOpacity>
         );
       })}
@@ -38,7 +41,7 @@ const SettingsComponent: FC<Prop> = ({
         setVisible={setVisible}
         title="Sort by"
         ViewBody={<ModalBody />}
-        ViewFooter={false}
+        ViewFooter={<></>}
       />
       <ScrollView style={styles.container}>
         {options?.map(({title, subTitle, onPress}) => (

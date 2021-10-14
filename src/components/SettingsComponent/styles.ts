@@ -26,5 +26,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    padding: 5,
+  },
+  name: {
+    fontSize: 17,
   },
 });
