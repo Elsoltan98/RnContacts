@@ -9,6 +9,7 @@ interface Prop {
   title?: string;
   ViewBody?: any;
   ViewFooter?: any;
+  closeOnTouch?: boolean | true;
 }
 
 const AppModal: FC<Prop> = ({
@@ -17,12 +18,17 @@ const AppModal: FC<Prop> = ({
   title,
   ViewBody,
   ViewFooter,
+  closeOnTouch,
 }) => {
   return (
     <Modal visible={visible} transparent>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => setVisible(false)}>
+        onPress={() => {
+          if (closeOnTouch) {
+            setVisible(false);
+          }
+        }}>
         <View style={styles.modalView}>
           <View style={styles.header}>
             <Icon

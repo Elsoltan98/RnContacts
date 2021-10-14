@@ -10,7 +10,7 @@ export default StyleSheet.create({
     paddingHorizontal: 30,
   },
   modalView: {
-    minHeight: 300,
+    minHeight: 200,
     width: '100%',
     backgroundColor: colors.white,
     paddingHorizontal: 10,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     fontSize: 17,
   },
   body: {
-    minHeight: 300,
+    minHeight: 150,
     paddingVertical: 10,
     paddingHorizontal: 10,
   },

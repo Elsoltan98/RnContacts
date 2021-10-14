@@ -22,4 +22,9 @@ export default StyleSheet.create({
     marginTop: 5,
     color: colors.grey,
   },
+  sortContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
