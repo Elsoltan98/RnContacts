@@ -20,9 +20,16 @@ interface Prop {
   setVisible?: any;
   data: [{}];
   loading: boolean;
+  sortBy?: string;
 }
 
-const ContactsComponent: FC<Prop> = ({visible, setVisible, data, loading}) => {
+const ContactsComponent: FC<Prop> = ({
+  visible,
+  sortBy,
+  setVisible,
+  data,
+  loading,
+}) => {
   const {navigate}: any = useNavigation();
   const renderItem = ({item}: any) => {
     return (
@@ -84,7 +91,26 @@ const ContactsComponent: FC<Prop> = ({visible, setVisible, data, loading}) => {
       {!loading && (
         <View>
           <FlatList
-            data={data}
+            data={
+              sortBy
+                ? data.sort((a, b) => {
+                    if (sortBy === 'First Name') {
+                      if (b.first_name > a.first_name) {
+                        return -1;
+                      } else {
+                        return 1;
+                      }
+                    }
+                    if (sortBy === 'Last Name') {
+                      if (b.last_name > a.last_name) {
+                        return -1;
+                      } else {
+                        return 1;
+                      }
+                    }
+                  })
+                : data
+            }
             keyExtractor={item => item.id}
             renderItem={renderItem}
             ListEmptyComponent={ListEmptyComponent}
