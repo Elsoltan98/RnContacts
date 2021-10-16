@@ -4,11 +4,13 @@ import CreateContactComponent from '../../components/CreateContactComponent';
 import {CONTACT_LIST} from '../../constants/routeNames';
 import createContact from '../../context/actions/contacts/createContact';
 import {GlobalContext} from '../../context/Provider';
+import uploadImages from '../../helpers/uploadImages';
 import {FormInputs} from '../Register';
 
 const CreateContact = () => {
   const {navigate}: any = useNavigation();
   const [form, setForm] = useState<FormInputs>({});
+  const [uploading, setUploading] = useState(false);
   const [localFile, setLocalFile] = useState();
   const onChangeText = ({name, value}: any) => {
     setForm({...form, [name]: value});
@@ -24,9 +26,18 @@ const CreateContact = () => {
   }: any = useContext(GlobalContext);
 
   const onSubmit = () => {
-    createContact(form)(contactsDispatch)(() => {
-      navigate(CONTACT_LIST);
-    });
+    if (localFile?.size) {
+      setUploading(true);
+      uploadImages(localFile)(url => {
+        setUploading(false);
+        createContact({...form, contactPicture: url})(contactsDispatch)(() => {
+          navigate(CONTACT_LIST);
+        });
+      })(err => {
+        console.log('err', err);
+        setUploading(false);
+      });
+    }
   };
 
   const toggleSwitch = () => {
@@ -56,7 +67,7 @@ const CreateContact = () => {
       onChangeText={onChangeText}
       onSubmit={onSubmit}
       error={error}
-      loading={loading}
+      loading={loading || uploading}
       data={data}
       toggleSwitch={toggleSwitch}
       openSheet={openSheet}

@@ -29,8 +29,10 @@ export default StyleSheet.create({
     fontSize: 17,
   },
   picture: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    marginRight: 20,
   },
   noPicture: {
     width: 60,
