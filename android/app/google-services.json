@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1009601110335",
+    "project_id": "rn-contacts-fbdcd",
+    "storage_bucket": "rn-contacts-fbdcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009601110335:android:db98bf3fc369dbbeefb38a",
+        "android_client_info": {
+          "package_name": "com.soltan.rnContacts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009601110335-38b2npjmd3k7j7l2di3kg3jf3koegrg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjdtRpxuXHY_ZQbsbmt8V0WudYRVlwQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009601110335-38b2npjmd3k7j7l2di3kg3jf3koegrg3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1009601110335-o4n1ql6nqn767287termlsq8acfaosna.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.rnContact"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
