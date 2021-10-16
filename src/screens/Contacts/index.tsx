@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerToggleButton} from '@react-navigation/drawer';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View} from 'react-native';
 import colors from '../../colors';
 import ContactsComponent from '../../components/ContactsComponent';
 import getContacts from '../../context/actions/contacts/getContacts';
 import {GlobalContext} from '../../context/Provider';
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
   const {setOptions} = useNavigation();
   const [modalVisible, setModalVisibile] = useState(false);
   const [sortBy, setSortBy] = useState();
