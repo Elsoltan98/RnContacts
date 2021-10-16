@@ -1,6 +1,6 @@
-import React, {createRef} from 'react';
+import React from 'react';
 
-export const navigationRef = createRef(null);
+export const navigationRef = React.createRef();
 
 export const navigate = (name, params) => {
   if (navigationRef.current) {

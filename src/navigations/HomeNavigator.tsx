@@ -5,11 +5,13 @@ import {
   CONTACT_DETAILS,
   CONTACT_LIST,
   CREATE_CONTACT,
+  LOGOUT,
   SETTINGS,
 } from '../constants/routeNames';
 import ContactDetails from '../screens/ContactDetails';
 import Contacts from '../screens/Contacts';
 import CreateContact from '../screens/CreateContact';
+import Logout from '../screens/Logout';
 import Settings from '../screens/Settings';
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +23,7 @@ const HomeNavigator = () => {
       <Stack.Screen name={CREATE_CONTACT} component={CreateContact} />
       <Stack.Screen name={CONTACT_DETAILS} component={ContactDetails} />
       <Stack.Screen name={SETTINGS} component={Settings} />
+      <Stack.Screen name={LOGOUT} component={Logout} />
     </Stack.Navigator>
   );
 };

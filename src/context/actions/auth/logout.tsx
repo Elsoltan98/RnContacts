@@ -5,7 +5,7 @@ export default () => (dispatch: (arg0: {type: string}) => void) => {
   AsyncStorage.removeItem('token');
   AsyncStorage.removeItem('user');
 
-  return dispatch({
+  dispatch({
     type: LOG_OUT,
   });
 };
