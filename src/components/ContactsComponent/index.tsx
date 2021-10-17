@@ -12,7 +12,7 @@ import AppModal from '../common/AppModal';
 import styles from './styles';
 
 import Icon from '../common/Icon';
-import {CREATE_CONTACT} from '../../constants/routeNames';
+import {CONTACT_DETAILS, CREATE_CONTACT} from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 
 interface Prop {
@@ -33,7 +33,9 @@ const ContactsComponent: FC<Prop> = ({
   const {navigate}: any = useNavigation();
   const renderItem = ({item}: any) => {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => navigate(CONTACT_DETAILS, {item})}>
         <View style={styles.item}>
           {item.contact_picture ? (
             <Image

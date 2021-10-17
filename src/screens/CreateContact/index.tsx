@@ -34,7 +34,6 @@ const CreateContact = () => {
           navigate(CONTACT_LIST);
         });
       })(err => {
-        console.log('err', err);
         setUploading(false);
       });
     }
