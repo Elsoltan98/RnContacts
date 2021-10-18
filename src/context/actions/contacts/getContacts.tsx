@@ -18,7 +18,6 @@ export default () =>
           type: GET_CONTACTS_SUCCESS,
           payload: res.data,
         });
-        console.log(res.data);
       })
       .catch(err => {
         dispatch({

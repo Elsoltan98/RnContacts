@@ -1,17 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DrawerToggleButton} from '@react-navigation/drawer';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
 import colors from '../../colors';
 import ContactsComponent from '../../components/ContactsComponent';
+import {CONTACT_DETAILS} from '../../constants/routeNames';
 import getContacts from '../../context/actions/contacts/getContacts';
 import {GlobalContext} from '../../context/Provider';
 
 const Contacts = ({navigation}) => {
-  const {setOptions} = useNavigation();
+  const {navigate, setOptions} = useNavigation();
   const [modalVisible, setModalVisibile] = useState(false);
   const [sortBy, setSortBy] = useState();
+  const contactsRef = useRef([]);
 
   const {
     contacts: {
@@ -37,6 +39,20 @@ const Contacts = ({navigation}) => {
       return () => {};
     }, []),
   );
+
+  useEffect(() => {
+    const prev = contactsRef.current;
+    contactsRef.current = data;
+
+    const newList = contactsRef.current;
+
+    if (newList.length - prev.length === 1) {
+      const newContact = newList.find(
+        item => !prev.map(i => i.id).includes(item.id),
+      );
+      navigate(CONTACT_DETAILS, {item: newContact});
+    }
+  }, [data.length]);
 
   useEffect(() => {
     setOptions({
