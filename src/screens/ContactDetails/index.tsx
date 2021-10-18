@@ -1,15 +1,20 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {Alert, TouchableOpacity, View} from 'react-native';
 import colors from '../../colors';
 import Icon from '../../components/common/Icon';
 import ContactsDetailsComponent from '../../components/ContactsDetailsComponent';
+import {CONTACT_LIST} from '../../constants/routeNames';
+import deleteContact from '../../context/actions/contacts/deleteContact';
+import {GlobalContext} from '../../context/Provider';
 
 const ContactDetails = () => {
-  const {setOptions} = useNavigation();
+  const {setOptions, navigate} = useNavigation();
   const {
     params: {item},
   }: any = useRoute();
+
+  const {contactsDispatch}: any = useContext(GlobalContext);
 
   useEffect(() => {
     if (item) {
@@ -25,7 +30,28 @@ const ContactDetails = () => {
                   color={colors.primary}
                 />
               </TouchableOpacity>
-              <TouchableOpacity style={{paddingLeft: 10}}>
+              <TouchableOpacity
+                onPress={() => {
+                  Alert.alert(
+                    'Delete !',
+                    `Are you sure you want delete ${item.first_name} ?`,
+                    [
+                      {
+                        text: 'cancel',
+                        onPress: () => {},
+                      },
+                      {
+                        text: 'Delete',
+                        onPress: () => {
+                          deleteContact(item.id)(contactsDispatch)(() => {
+                            navigate(CONTACT_LIST);
+                          });
+                        },
+                      },
+                    ],
+                  );
+                }}
+                style={{paddingLeft: 10}}>
                 <Icon
                   type="MaterialCommunityIcons"
                   name="delete"
