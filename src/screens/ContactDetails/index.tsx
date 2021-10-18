@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useContext, useEffect} from 'react';
-import {Alert, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Alert, TouchableOpacity, View} from 'react-native';
 import colors from '../../colors';
 import Icon from '../../components/common/Icon';
 import ContactsDetailsComponent from '../../components/ContactsDetailsComponent';
@@ -14,7 +14,14 @@ const ContactDetails = () => {
     params: {item},
   }: any = useRoute();
 
-  const {contactsDispatch}: any = useContext(GlobalContext);
+  const {
+    contacts: {
+      deleteContact: {loading},
+    },
+    contactsDispatch,
+  }: any = useContext(GlobalContext);
+
+  console.log(loading);
 
   useEffect(() => {
     if (item) {
@@ -52,12 +59,16 @@ const ContactDetails = () => {
                   );
                 }}
                 style={{paddingLeft: 10}}>
-                <Icon
-                  type="MaterialCommunityIcons"
-                  name="delete"
-                  size={21}
-                  color={colors.primary}
-                />
+                {loading ? (
+                  <ActivityIndicator size="small" color={colors.primary} />
+                ) : (
+                  <Icon
+                    type="MaterialCommunityIcons"
+                    name="delete"
+                    size={21}
+                    color={colors.primary}
+                  />
+                )}
               </TouchableOpacity>
             </View>
           );
