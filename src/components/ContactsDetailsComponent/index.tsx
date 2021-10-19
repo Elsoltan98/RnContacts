@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import styles from './styles';
 import ImageComponent from './ImageComponent';
@@ -8,6 +8,8 @@ import colors from '../../colors';
 import CustomButton from '../common/CustomButton';
 import {navigate} from '../../navigations/SideMenu/RootNavigator';
 import {CREATE_CONTACT} from '../../constants/routeNames';
+import {DEFAULT_IMAGE_URI} from '../../constants/general';
+import ImagePicker from '../common/ImagePicker';
 
 interface Props {
   contact: {
@@ -19,14 +21,42 @@ interface Props {
     last_name: string;
     phone_number: string;
   };
+  localFile?: string;
+  closeSheet?: () => void;
+  openSheet?: () => void;
+  sheetRef: any;
+  onImageSelected: any;
 }
 
-const ContactsDetailsComponent: FC<Props> = ({contact}) => {
+const ContactsDetailsComponent: FC<Props> = ({
+  contact,
+  localFile,
+  openSheet,
+  closeSheet,
+  sheetRef,
+  onImageSelected,
+}) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
         {contact.contact_picture && (
           <ImageComponent src={contact.contact_picture} />
+        )}
+
+        {!contact.contact_picture && (
+          <View style={styles.noPicture}>
+            <Image
+              source={{
+                uri: localFile?.path || DEFAULT_IMAGE_URI,
+              }}
+              style={styles.defaultImage}
+            />
+            <TouchableOpacity
+              onPress={openSheet}
+              style={{alignItems: 'center'}}>
+              <Text style={{color: colors.primary}}>Add Photo</Text>
+            </TouchableOpacity>
+          </View>
         )}
         <View>
           <Text
@@ -121,6 +151,8 @@ const ContactsDetailsComponent: FC<Props> = ({contact}) => {
             onSubmit={() => navigate(CREATE_CONTACT, {contact})}
           />
         </View>
+
+        <ImagePicker ref={sheetRef} onImageSelected={onImageSelected} />
       </View>
     </ScrollView>
   );

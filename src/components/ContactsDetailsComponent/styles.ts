@@ -50,4 +50,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 30,
   },
+  defaultImage: {
+    width: 150,
+    height: 150,
+    alignSelf: 'center',
+    borderRadius: 100,
+  },
+  noPicture: {
+    marginTop: 10,
+  },
 });

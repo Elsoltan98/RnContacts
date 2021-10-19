@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, Alert, TouchableOpacity, View} from 'react-native';
 import colors from '../../colors';
 import Icon from '../../components/common/Icon';
@@ -20,8 +20,24 @@ const ContactDetails = () => {
     },
     contactsDispatch,
   }: any = useContext(GlobalContext);
+  const [localFile, setLocalFile] = useState();
+  const sheetRef = useRef(null);
 
-  console.log(loading);
+  const closeSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.close();
+    }
+  };
+  const openSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.open();
+    }
+  };
+
+  const onImageSelected = (image: any) => {
+    closeSheet();
+    setLocalFile(image);
+  };
 
   useEffect(() => {
     if (item) {
@@ -77,7 +93,16 @@ const ContactDetails = () => {
     }
   }, [item]);
 
-  return <ContactsDetailsComponent contact={item} />;
+  return (
+    <ContactsDetailsComponent
+      closeSheet={closeSheet}
+      openSheet={openSheet}
+      localFile={localFile}
+      contact={item}
+      sheetRef={sheetRef}
+      onImageSelected={onImageSelected}
+    />
+  );
 };
 
 export default ContactDetails;

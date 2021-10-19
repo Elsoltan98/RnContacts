@@ -9,7 +9,7 @@ import uploadImages from '../../helpers/uploadImages';
 import {FormInputs} from '../Register';
 
 const CreateContact = () => {
-  const {navigate}: any = useNavigation();
+  const {navigate, setOptions}: any = useNavigation();
   const [form, setForm] = useState<FormInputs>({});
   const [uploading, setUploading] = useState(false);
   const [localFile, setLocalFile] = useState();
@@ -93,6 +93,9 @@ const CreateContact = () => {
 
   useEffect(() => {
     if (params) {
+      setOptions({
+        title: 'Update Contact',
+      });
       const {
         first_name,
         last_name,
