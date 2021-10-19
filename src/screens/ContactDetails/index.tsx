@@ -25,50 +25,7 @@ const ContactDetails = () => {
   const [localFile, setLocalFile] = useState();
   const sheetRef: any = useRef(null);
   const [updateing, setUpdateing] = useState(false);
-
-  const closeSheet = () => {
-    if (sheetRef.current) {
-      sheetRef.current.close();
-    }
-  };
-  const openSheet = () => {
-    if (sheetRef.current) {
-      sheetRef.current.open();
-    }
-  };
-
-  const onImageSelected = (image: any) => {
-    closeSheet();
-    setLocalFile(image);
-
-    setUpdateing(true);
-    const {
-      first_name: firstName,
-      last_name: lastName,
-      country_code: countryCode,
-      phone_number: phoneNumber,
-      is_favorite: isFavorite,
-    } = item;
-
-    uploadImages(localFile?.path)(url => {
-      setUpdateing(false);
-      updateContact(
-        {
-          firstName,
-          lastName,
-          countryCode,
-          phoneNumber,
-          isFavorite,
-          contactPicture: url,
-        },
-        item.id,
-      )(contactsDispatch)(item => {
-        // navigate(CONTACT_DETAILS, {item});
-      });
-    })(err => {
-      setUpdateing(false);
-    });
-  };
+  const [finishUploading, setFinishUploading] = useState(false);
 
   useEffect(() => {
     if (item) {
@@ -123,7 +80,51 @@ const ContactDetails = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item]);
+  }, [item, loading]);
+
+  const closeSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.close();
+    }
+  };
+  const openSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.open();
+    }
+  };
+
+  const onImageSelected = (image: any) => {
+    closeSheet();
+    setLocalFile(image);
+    setUpdateing(true);
+    const {
+      first_name: firstName,
+      last_name: lastName,
+      country_code: countryCode,
+      phone_number: phoneNumber,
+      is_favorite: isFavorite,
+    } = item;
+
+    uploadImages(image)(url => {
+      updateContact(
+        {
+          firstName,
+          lastName,
+          countryCode,
+          phoneNumber,
+          isFavorite,
+          contactPicture: url,
+        },
+        item.id,
+      )(contactsDispatch)(item => {
+        setUpdateing(false);
+        setFinishUploading(true);
+      });
+    })(err => {
+      console.log('err', err);
+      setUpdateing(false);
+    });
+  };
 
   return (
     <ContactsDetailsComponent
@@ -134,6 +135,7 @@ const ContactDetails = () => {
       sheetRef={sheetRef}
       onImageSelected={onImageSelected}
       updateingPicture={updateing}
+      finishUploading={finishUploading}
     />
   );
 };

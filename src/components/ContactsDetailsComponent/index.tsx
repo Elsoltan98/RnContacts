@@ -27,6 +27,7 @@ interface Props {
   sheetRef: any;
   onImageSelected: any;
   updateingPicture?: boolean;
+  finishUploading?: boolean;
 }
 
 const ContactsDetailsComponent: FC<Props> = ({
@@ -37,15 +38,16 @@ const ContactsDetailsComponent: FC<Props> = ({
   sheetRef,
   onImageSelected,
   updateingPicture,
+  finishUploading,
 }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        {contact.contact_picture && (
-          <ImageComponent src={contact.contact_picture} />
+        {(contact.contact_picture || finishUploading) && (
+          <ImageComponent src={contact.contact_picture || localFile?.path} />
         )}
 
-        {!contact.contact_picture && (
+        {!contact.contact_picture && !finishUploading && (
           <View style={styles.noPicture}>
             <Image
               source={{
