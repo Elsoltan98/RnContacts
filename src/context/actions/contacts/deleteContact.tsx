@@ -20,7 +20,6 @@ export default (id: any) =>
           payload: id,
         });
         onSuccess();
-        console.log('id', id);
       })
       .catch(err => {
         dispatch({

@@ -6,6 +6,8 @@ import ImageComponent from './ImageComponent';
 import Icon from '../common/Icon';
 import colors from '../../colors';
 import CustomButton from '../common/CustomButton';
+import {navigate} from '../../navigations/SideMenu/RootNavigator';
+import {CREATE_CONTACT} from '../../constants/routeNames';
 
 interface Props {
   contact: {
@@ -113,7 +115,11 @@ const ContactsDetailsComponent: FC<Props> = ({contact}) => {
 
         {/* Edit contact Button */}
         <View style={{padding: 30}}>
-          <CustomButton title="Edit Contact" primary onSubmit={() => {}} />
+          <CustomButton
+            title="Edit Contact"
+            primary
+            onSubmit={() => navigate(CREATE_CONTACT, {contact})}
+          />
         </View>
       </View>
     </ScrollView>

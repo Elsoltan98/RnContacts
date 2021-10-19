@@ -1,8 +1,9 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useContext, useRef, useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import CreateContactComponent from '../../components/CreateContactComponent';
-import {CONTACT_LIST} from '../../constants/routeNames';
+import {CONTACT_DETAILS, CONTACT_LIST} from '../../constants/routeNames';
 import createContact from '../../context/actions/contacts/createContact';
+import updateContact from '../../context/actions/contacts/updateContact';
 import {GlobalContext} from '../../context/Provider';
 import uploadImages from '../../helpers/uploadImages';
 import {FormInputs} from '../Register';
@@ -26,16 +27,46 @@ const CreateContact = () => {
   }: any = useContext(GlobalContext);
 
   const onSubmit = () => {
-    if (localFile?.size) {
-      setUploading(true);
-      uploadImages(localFile)(url => {
-        setUploading(false);
-        createContact({...form, contactPicture: url})(contactsDispatch)(() => {
+    if (params?.contact) {
+      if (localFile?.size) {
+        setUploading(true);
+        uploadImages(localFile)(url => {
+          setUploading(false);
+          updateContact(
+            {...form, contactPicture: url},
+            params?.contact.id,
+          )(contactsDispatch)(item => {
+            navigate(CONTACT_DETAILS, {item});
+          });
+        })(err => {
+          setUploading(false);
+        });
+      } else {
+        updateContact(
+          {...form, contactPicture: localFile?.path},
+          params?.contact.id,
+        )(contactsDispatch)(item => {
+          navigate(CONTACT_DETAILS, {item});
+        });
+      }
+    } else {
+      if (localFile?.size) {
+        setUploading(true);
+        uploadImages(localFile)(url => {
+          setUploading(false);
+          createContact({...form, contactPicture: url})(contactsDispatch)(
+            () => {
+              navigate(CONTACT_LIST);
+            },
+          );
+        })(err => {
+          setUploading(false);
+        });
+      } else {
+        createContact(form)(contactsDispatch)(() => {
           navigate(CONTACT_LIST);
         });
-      })(err => {
-        setUploading(false);
-      });
+      }
     }
   };
 
@@ -58,6 +89,29 @@ const CreateContact = () => {
     closeSheet();
     setLocalFile(image);
   };
+  const {params} = useRoute();
+
+  useEffect(() => {
+    if (params) {
+      const {
+        first_name,
+        last_name,
+        is_favorite,
+        country_code,
+        phone_number,
+        contact_picture,
+      } = params?.contact;
+      setForm({
+        ...form,
+        firstName: first_name,
+        lastName: last_name,
+        isFavorite: is_favorite,
+        countryCode: country_code,
+        phoneNumber: phone_number,
+      });
+      setLocalFile({path: contact_picture});
+    }
+  }, [params]);
 
   return (
     <CreateContactComponent

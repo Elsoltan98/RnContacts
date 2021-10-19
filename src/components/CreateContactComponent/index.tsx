@@ -41,7 +41,9 @@ const CreateContactComponent: FC<Prop> = ({
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
+        source={{
+          uri: localFile?.path || DEFAULT_IMAGE_URI,
+        }}
         style={styles.defaultImage}
       />
       <TouchableOpacity onPress={openSheet}>
@@ -54,6 +56,7 @@ const CreateContactComponent: FC<Prop> = ({
           onChangeText({name: 'firstName', value: value});
         }}
         error={error?.first_name?.[0]}
+        value={form?.firstName || ''}
       />
       <Input
         label="Last name"
@@ -62,6 +65,7 @@ const CreateContactComponent: FC<Prop> = ({
           onChangeText({name: 'lastName', value: value});
         }}
         error={error?.last_name?.[0]}
+        value={form?.lastName || ''}
       />
       <Input
         label="Phone number"
@@ -70,6 +74,7 @@ const CreateContactComponent: FC<Prop> = ({
         onChangeText={value => {
           onChangeText({name: 'phoneNumber', value: value});
         }}
+        value={form?.phoneNumber || ''}
         icon={
           <CountryPicker
             withFilter

@@ -9,7 +9,7 @@ import {CONTACT_DETAILS} from '../../constants/routeNames';
 import getContacts from '../../context/actions/contacts/getContacts';
 import {GlobalContext} from '../../context/Provider';
 
-const Contacts = ({navigation}) => {
+const Contacts = () => {
   const {navigate, setOptions} = useNavigation();
   const [modalVisible, setModalVisibile] = useState(false);
   const [sortBy, setSortBy] = useState();
