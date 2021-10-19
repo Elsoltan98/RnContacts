@@ -6,10 +6,12 @@ import Icon from '../../components/common/Icon';
 import ContactsDetailsComponent from '../../components/ContactsDetailsComponent';
 import {CONTACT_LIST} from '../../constants/routeNames';
 import deleteContact from '../../context/actions/contacts/deleteContact';
+import updateContact from '../../context/actions/contacts/updateContact';
 import {GlobalContext} from '../../context/Provider';
+import uploadImages from '../../helpers/uploadImages';
 
 const ContactDetails = () => {
-  const {setOptions, navigate} = useNavigation();
+  const {setOptions, navigate}: any = useNavigation();
   const {
     params: {item},
   }: any = useRoute();
@@ -21,7 +23,8 @@ const ContactDetails = () => {
     contactsDispatch,
   }: any = useContext(GlobalContext);
   const [localFile, setLocalFile] = useState();
-  const sheetRef = useRef(null);
+  const sheetRef: any = useRef(null);
+  const [updateing, setUpdateing] = useState(false);
 
   const closeSheet = () => {
     if (sheetRef.current) {
@@ -37,6 +40,34 @@ const ContactDetails = () => {
   const onImageSelected = (image: any) => {
     closeSheet();
     setLocalFile(image);
+
+    setUpdateing(true);
+    const {
+      first_name: firstName,
+      last_name: lastName,
+      country_code: countryCode,
+      phone_number: phoneNumber,
+      is_favorite: isFavorite,
+    } = item;
+
+    uploadImages(localFile?.path)(url => {
+      setUpdateing(false);
+      updateContact(
+        {
+          firstName,
+          lastName,
+          countryCode,
+          phoneNumber,
+          isFavorite,
+          contactPicture: url,
+        },
+        item.id,
+      )(contactsDispatch)(item => {
+        // navigate(CONTACT_DETAILS, {item});
+      });
+    })(err => {
+      setUpdateing(false);
+    });
   };
 
   useEffect(() => {
@@ -91,6 +122,7 @@ const ContactDetails = () => {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
 
   return (
@@ -101,6 +133,7 @@ const ContactDetails = () => {
       contact={item}
       sheetRef={sheetRef}
       onImageSelected={onImageSelected}
+      updateingPicture={updateing}
     />
   );
 };

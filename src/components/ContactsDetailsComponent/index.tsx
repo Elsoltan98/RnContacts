@@ -26,6 +26,7 @@ interface Props {
   openSheet?: () => void;
   sheetRef: any;
   onImageSelected: any;
+  updateingPicture?: boolean;
 }
 
 const ContactsDetailsComponent: FC<Props> = ({
@@ -35,6 +36,7 @@ const ContactsDetailsComponent: FC<Props> = ({
   closeSheet,
   sheetRef,
   onImageSelected,
+  updateingPicture,
 }) => {
   return (
     <ScrollView style={styles.scrollView}>
@@ -53,8 +55,10 @@ const ContactsDetailsComponent: FC<Props> = ({
             />
             <TouchableOpacity
               onPress={openSheet}
-              style={{alignItems: 'center'}}>
-              <Text style={{color: colors.primary}}>Add Photo</Text>
+              style={{alignItems: 'center', paddingTop: 5}}>
+              <Text style={{color: colors.primary}}>
+                {updateingPicture ? 'Updating...' : 'Add Photo'}
+              </Text>
             </TouchableOpacity>
           </View>
         )}
