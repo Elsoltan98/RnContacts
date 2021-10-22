@@ -34,7 +34,6 @@ const ContactsDetailsComponent: FC<Props> = ({
   contact,
   localFile,
   openSheet,
-  closeSheet,
   sheetRef,
   onImageSelected,
   updateingPicture,
