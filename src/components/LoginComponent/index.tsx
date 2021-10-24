@@ -51,7 +51,7 @@ const LoginComponent: FC<Props> = ({
             </Text>
           </TouchableOpacity>
         )}
-        {(errors.userName || errors.password || error) && (
+        {error && (
           <TouchableOpacity style={styles.errorMsg}>
             <Text style={{color: colors.white}}>
               {error ? error.detail : 'Something wrong ! try again...'}

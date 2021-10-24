@@ -64,13 +64,11 @@ const ContactsComponent: FC<Prop> = ({
     );
   };
 
-  const ListEmptyComponent = () => {
-    return (
-      <View style={styles.message}>
-        <Text style={styles.textMsg}>No Contacts to show</Text>
-      </View>
-    );
-  };
+  // const ListEmptyComponent = () => {
+  //   return (
+
+  //   );
+  // };
 
   return (
     <View style={styles.container}>
@@ -90,7 +88,7 @@ const ContactsComponent: FC<Prop> = ({
         />
       )}
 
-      {!loading && (
+      {!loading && data.length ? (
         <View>
           <FlatList
             data={
@@ -115,9 +113,20 @@ const ContactsComponent: FC<Prop> = ({
             }
             keyExtractor={item => item.id}
             renderItem={renderItem}
-            ListEmptyComponent={ListEmptyComponent}
             ItemSeparatorComponent={() => <View style={styles.line} />}
           />
+        </View>
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 30,
+          }}>
+          <View style={styles.message}>
+            <Text style={styles.textMsg}>No Contacts to show</Text>
+          </View>
         </View>
       )}
       <TouchableOpacity

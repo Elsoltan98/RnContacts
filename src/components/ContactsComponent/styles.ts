@@ -18,11 +18,12 @@ export default StyleSheet.create({
     right: 20,
   },
   message: {
-    width: '100%',
+    width: '70%',
     backgroundColor: colors.primary,
-    padding: 10,
+    padding: 20,
     alignItems: 'center',
     borderRadius: 10,
+    justifyContent: 'center',
   },
   textMsg: {
     color: colors.white,
